@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Citaxmexico.com | Adult Content Earn 1000 Naira Per Task</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #f0f0f0;
+            min-height: 100vh;
+            transition: all 0.2s;
+        }
+
+        /* 18+ MODAL - RED & WHITE ALERT DESIGN */
+        .age-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .age-card {
+            background: #111;
+            border-radius: 48px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border: 3px solid #e11d48;
+            box-shadow: 0 0 40px rgba(225, 29, 72, 0.5);
+            animation: pulseRed 1.5s infinite;
+        }
+        @keyframes pulseRed {
+            0% { box-shadow: 0 0 0 0 rgba(225,29,72,0.5); border-color: #e11d48;}
+            70% { box-shadow: 0 0 0 15px rgba(225,29,72,0); border-color: #ff4d6d;}
+            100% { box-shadow: 0 0 0 0 rgba(225,29,72,0); border-color: #e11d48;}
+        }
+        .age-icon {
+            font-size: 80px;
+            background: white;
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: #e11d48;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .age-icon span {
+            font-size: 64px;
+            font-weight: 900;
+        }
+        .age-card h2 {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            color: #e11d48;
+            font-weight: 800;
+        }
+        .age-card p {
+            margin: 20px 0;
+            color: #ddd;
+            font-weight: bold;
+        }
+        .age-confirm {
+            background: #e11d48;
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 15px;
+        }
+        .age-confirm:hover {
+            background: #ff2e5c;
+            transform: scale(1.02);
+        }
+
+        /* main app wrapper */
+        .app-wrapper {
+            display: none;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #e11d48, #ff6b8b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        .auth-buttons button, .logout-btn {
+            background: #1f1f2e;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .logout-btn {
+            background: #e11d48;
+        }
+        /* forms */
+        .form-card {
+            background: #11181c;
+            border-radius: 32px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #2c2c3a;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e1e2a;
+            border: 1px solid #333;
+            border-radius: 28px;
+            color: white;
+            font-size: 1rem;
+        }
+        button.primary {
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        button.primary:hover {
+            background: #ff2f5e;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .card {
+            background: #0f0f17;
+            border-radius: 28px;
+            padding: 20px;
+            border: 1px solid #252532;
+        }
+        .balance-box {
+            background: linear-gradient(145deg, #12121c, #0a0a10);
+            border-left: 6px solid #e11d48;
+        }
+        .video-upload-area {
+            border: 2px dashed #e11d48;
+            background: #0c0c14;
+        }
+        .video-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .video-item {
+            background: #1a1a24;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .earn-badge {
+            color: #2dd4bf;
+            font-weight: bold;
+        }
+        .withdraw-area {
+            background: #0e0e16;
+        }
+        .message-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1f1f2e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 1100;
+            border-left: 5px solid #e11d48;
+            animation: fadeOut 3s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0);}
+            70% { opacity: 1;}
+            100% { opacity: 0; visibility: hidden;}
+        }
+        .inline-code {
+            background: #2a2a3a;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-family: monospace;
+        }
+        hr {
+            border-color: #2c2c3a;
+            margin: 15px 0;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+        @media (max-width: 800px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .warning-text {
+            color: #f97316;
+            font-size: 0.8rem;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 18+ ALERT MODAL (red & white design) -->
+<div id="ageGateModal" class="age-modal">
+    <div class="age-card">
+        <div class="age-icon">
+            <span>18+</span>
+        </div>
+        <h2>ADULT ONLY</h2>
+        <p>🔞 Explicit adult content — you must be 18 years or older to access Citaxmexico.com.<br> 
+        By entering, you confirm your age and agree to our terms.</p>
+        <button class="age-confirm" id="confirmAgeBtn">I AM 18+ & ENTER</button>
+    </div>
+</div>
+
+<div id="mainApp" class="app-wrapper">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1><i class="fas fa-video"></i> Citaxmexico.com</h1>
+                <p>Earn ₦1000 per adult video task | Verified payouts</p>
+            </div>
+            <div id="authHeaderButtons">
+                <button id="showLoginBtn" class="auth-buttons"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button id="showSignupBtn" class="auth-buttons"><i class="fas fa-user-plus"></i> Sign Up</button>
+                <button id="logoutBtn" class="logout-btn" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </header>
+
+        <!-- AUTH SECTIONS (Login & Signup) -->
+        <div id="loginSection" class="form-card">
+            <h2><i class="fas fa-lock"></i> Login to your account</h2>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="loginUsername" placeholder="Your username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Password">
+            </div>
+            <button id="doLoginBtn" class="primary">Login <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <div id="signupSection" class="form-card" style="display:none;">
+            <h2><i class="fas fa-user-check"></i> Create account & verify age</h2>
+            <div class="form-group">
+                <label>Access Code (from partner app) *</label>
+                <input type="text" id="signupAccessCode" placeholder="Enter invitation code">
+                <small class="warning-text">Required: use code <span class="inline-code">CITAX2025</span></small>
+            </div>
+            <div class="form-group">
+                <label>Full Username</label>
+                <input type="text" id="signupUser" placeholder="choose username">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="signupEmail" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signupPass" placeholder="create password">
+            </div>
+            <div class="form-group">
+                <label>Date of Birth (Age verification 18+)</label>
+                <input type="date" id="signupDob">
+            </div>
+            <button id="doSignupBtn" class="primary">Register & Earn <i class="fas fa-coins"></i></button>
+        </div>
+
+        <!-- DASHBOARD (visible only after login) -->
+        <div id="dashboardPanel" style="display:none;">
+            <div class="dashboard-grid">
+                <!-- left side: balance & withdrawal -->
+                <div>
+                    <div class="card balance-box">
+                        <h3><i class="fas fa-wallet"></i> My Wallet</h3>
+                        <div class="flex-between">
+                            <span>💰 Available for withdrawal (after 7d hold):</span>
+                            <span id="withdrawableBalance" style="font-size: 1.8rem; font-weight:bold;">₦0</span>
+                        </div>
+                        <div class="flex-between" style="margin-top: 8px;">
+                            <span>⏳ Pending earnings (in 7d lock):</span>
+                            <span id="pendingEarningsSpan">₦0</span>
+                        </div>
+                        <hr>
+                        <div class="flex-between">
+                            <span>🏦 Total earned (all time):</span>
+                            <span id="totalEarnedSpan">₦0</span>
+                        </div>
+                        <button id="withdrawBtn" class="primary" style="margin-top: 20px; background:#2b2b3a;"><i class="fas fa-university"></i> Request Withdrawal</button>
+                        <p class="warning-text" style="margin-top: 10px;"><i class="fas fa-clock"></i> Withdrawals processed in 7 days to your bank after request</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-upload"></i> Upload Video & Earn ₦1000</h3>
+                        <div class="form-group">
+                            <label>Select adult video from device</label>
+                            <input type="file" id="videoFileInput" accept="video/mp4,video/avi,video/mov,video/webm">
+                        </div>
+                        <div class="form-group">
+                            <label>📀 Upload Code (required for payout)</label>
+                            <input type="text" id="uploadCodeInput" placeholder="Enter video task code">
+                            <small>Use code: <span class="inline-code">EARN2025</span> to activate ₦1000</small>
+                        </div>
+                        <button id="uploadVideoBtn" class="primary"><i class="fas fa-cloud-upload-alt"></i> Post video & get ₦1000</button>
+                        <div id="uploadPreview" style="margin-top: 12px; font-size: 0.8rem;"></div>
+                    </div>
+                </div>
+
+                <!-- right side: video history & transactions -->
+                <div>
+                    <div class="card">
+                        <h3><i class="fas fa-history"></i> My Video Tasks (earnings)</h3>
+                        <div id="videoHistoryList" class="video-list">
+                            <p style="color:gray;">No videos uploaded yet. Upload your first adult content to earn.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: 20px;">
+                        <h3><i class="fas fa-shield-alt"></i> Account info & Age confirmation</h3>
+                        <p><strong>👤 Username:</strong> <span id="profileUsername"></span></p>
+                        <p><strong>🎂 Date of Birth:</strong> <span id="profileDob"></span> ✅ 18+ verified</p>
+                        <p><i class="fas fa-exclamation-triangle"></i> All content must follow adult guidelines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>© Citaxmexico.com — 18+ Platform. Each approved video = ₦1000 credited after code. 7-day security hold for withdrawals.</p>
+        </footer>
+    </div>
+</div>
+
+<script>
+    // ---------- STORAGE KEYS ----------
+    const STORAGE_USERS = "citax_users";
+    const SESSION_KEY = "citax_current_user";
+
+    // Helper: load users
+    function loadUsers() {
+        const stored = localStorage.getItem(STORAGE_USERS);
+        if (stored) return JSON.parse(stored);
+        return [];
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem(STORAGE_USERS, JSON.stringify(users));
+    }
+
+    function getCurrentUser() {
+        const username = sessionStorage.getItem(SESSION_KEY);
+        if (!username) return null;
+        const users = loadUsers();
+        return users.find(u => u.username === username) || null;
+    }
+
+    function setCurrentUser(user) {
+        if (user) sessionStorage.setItem(SESSION_KEY, user.username);
+        else sessionStorage.removeItem(SESSION_KEY);
+    }
+
+    // update user data in storage
+    function updateUser(updatedUser) {
+        let users = loadUsers();
+        const index = users.findIndex(u => u.username === updatedUser.username);
+        if (index !== -1) users[index] = updatedUser;
+        else users.push(updatedUser);
+        saveUsers(users);
+        if (getCurrentUser()?.username === updatedUser.username) setCurrentUser(updatedUser);
+        return updatedUser;
+    }
+
+    // Helper: compute withdrawable & pending based on transactions & current time
+    function computeBalances(user) {
+        const now = Date.now();
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+        let withdrawable = 0;
+        let pending = 0;
+        let totalEarned = 0;
+        if (user.transactions && user.transactions.length) {
+            user.transactions.forEach(tx => {
+                if (tx.withdrawn) return; // already withdrawn
+                totalEarned += tx.amount;
+                const age = now - tx.timestamp;
+                if (age >= sevenDays) {
+                    withdrawable += tx.amount;
+                } else {
+                    pending += tx.amount;
+                }
+            });
+        }
+        return { withdrawable, pending, totalEarned };
+    }
+
+    // render dashboard after login
+    function refreshDashboard() {
+        const user = getCurrentUser();
+        if (!user) return;
+        document.getElementById("profileUsername").innerText = user.username;
+        document.getElementById("profileDob").innerText = user.dob || "N/A";
+        const { withdrawable, pending, totalEarned } = computeBalances(user);
+        document.getElementById("withdrawableBalance").innerHTML = `₦${withdrawable.toFixed(2)}`;
+        document.getElementById("pendingEarningsSpan").innerHTML = `₦${pending.toFixed(2)}`;
+        document.getElementById("totalEarnedSpan").innerHTML = `₦${totalEarned.toFixed(2)}`;
+
+        // render video history list
+        const videoListDiv = document.getElementById("videoHistoryList");
+        if (!user.videos || user.videos.length === 0) {
+            videoListDiv.innerHTML = `<p style="color:gray;">No videos uploaded yet. Upload your first adult content to earn.</p>`;
+        } else {
+            videoListDiv.innerHTML = user.videos.slice().reverse().map(vid => {
+                const txLinked = user.transactions?.find(t => t.videoId === vid.id);
+                const status = txLinked ? (txLinked.withdrawn ? "✅ Withdrawn" : (Date.now() - txLinked.timestamp >= 7*24*60*60*1000 ? "💰 Ready to withdraw" : "⏳ Pending (7d hold)")) : "Pending code";
+                return `
+                    <div class="video-item">
+                        <div><i class="fas fa-film"></i> <strong>${vid.filename}</strong><br><small>${new Date(vid.uploadDate).toLocaleString()}</small></div>
+                        <div class="earn-badge">₦1000 • ${status}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    function showMessage(msg, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'message-toast';
+        toast.style.background = isError ? '#5a1e2a' : '#1e3a2f';
+        toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3200);
+    }
+
+    // age verification modal
+    const modal = document.getElementById("ageGateModal");
+    const mainApp = document.getElementById("mainApp");
+    document.getElementById("confirmAgeBtn").addEventListener("click", () => {
+        modal.style.display = "none";
+        mainApp.style.display = "block";
+        // after age confirmation, check session & show proper UI
+        updateAuthUI();
+    });
+
+    function updateAuthUI() {
+        const user = getCurrentUser();
+        const loginSec = document.getElementById("loginSection");
+        const signupSec = document.getElementById("signupSection");
+        const dashboard = document.getElementById("dashboardPanel");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const showLogin = document.getElementById("showLoginBtn");
+        const showSignup = document.getElementById("showSignupBtn");
+
+               if (user) {
+            loginSec.style.display = "none";
+            signupSec.style.display = "none";
+            dashboard.style.display = "block";
+            logoutBtn.style.display = "inline-block";
+            showLogin.style.display = "none";
+            showSignup.style.display = "none";
+            refreshDashboard();
+        } else {
+            loginSec.style.display = "block";
+            signupSec.style.display = "none";
+            dashboard.style.display = "none";
+            logoutBtn.style.display = "none";
+            showLogin.style.display = "inline-block";
+            showSignup.style.display = "inline-block";
+        }
+    }
+
+    // signup logic
+    document.getElementById("doSignupBtn").addEventListener("click", () => {
+        const accessCode = document.getElementById("signupAccessCode").value.trim();
+        const requiredCode = "CITAX2025";
+        if (accessCode !== requiredCode) {
+            showMessage("Invalid access code! You need the code from our partner app: CITAX2025", true);
+            return;
+        }
+        const username = document.getElementById("signupUser").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPass").value;
+        const dob = document.getElementById("signupDob").value;
+        if (!username || !email || !password || !dob) {
+            showMessage("All fields required", true);
+            return;
+        }
+        // age check 18+
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+        if (age < 18) {
+            showMessage("You must be 18+ to join this adult platform.", true);
+            return;
+        }
+        const users = loadUsers();
+        if (users.find(u => u.username === username)) {
+            showMessage("Username already taken", true);
+            return;
+        }
+        const newUser = {
+            username,
+            email,
+            password, // plaintext for demo
+            dob,
+            createdAt: Date.now(),
+            videos: [],
+            transactions: [], // each {id, amount, timestamp, withdrawn, videoId, videoName}
+            totalEarnedRaw: 0
+        };
+        users.push(newUser);
+        saveUsers(users);
+        setCurrentUser(newUser);
+        showMessage("Account created! You are now logged in. Upload videos with code EARN2025.");
+        updateAuthUI();
+        // clear signup fields
+        document.getElementById("signupUser").value = "";
+        document.getElementById("signupEmail").value = "";
+        document.getElementById("signupPass").value = "";
+        document.getElementById("signupDob").value = "";
+        document.getElementById("signupAccessCode").value = "";
+    });
+
+    // login
+    document.getElementById("doLoginBtn").addEventListener("click", () => {
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const users = loadUsers();
+        const found = users.find(u => u.username === username && u.password === password);
+        if (!found) {
+            showMessage("Invalid credentials", true);
+            return;
+        }
+        setCurrentUser(found);
+        showMessage(`Welcome back ${found.username}!`);
+        updateAuthUI();
+        document.getElementById("loginUsername").value = "";
+        document.getElementById("loginPassword").value = "";
+    });
+
+    // logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem(SESSION_KEY);
+        updateAuthUI();
+        showMessage("Logged out successfully");
+    });
+
+    document.getElementById("showSignupBtn").addEventListener("click", () => {
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("signupSection").style.display = "block";
+    });
+    document.getElementById("showLoginBtn").addEventListener("click", () => {
+        document.getElementById("loginSection").style.display = "block";
+        document.getElementById("signupSection").style.display = "none";
+    });
+
+    // UPLOAD VIDEO & EARN 1000 NAIRA WITH CODE
+    document.getElementById("uploadVideoBtn").addEventListener("click", () => {
+        const user = getCurrentUser();
+        if (!user) {
+            showMessage("Please login first", true);
+            return;
+        }
+        const videoFile = document.getElementById("videoFileInput").files[0];
+        const uploadCode = document.getElementById("uploadCodeInput").value.trim();
+        const requiredUploadCode = "EARN2025";
+        if (!videoFile) {
+            showMessage("Select a video file from your device", true);
+            return;
+        }
+        if (uploadCode !== requiredUploadCode) {
+            showMessage(`Invalid upload code! You need to enter the correct task code: ${requiredUploadCode}`, true);
+            return;
+        }
+        if (!videoFile.type.startsWith("video/")) {
+            showMessage("Only video files allowed (adult content)", true);
+            return;
+        }
+        // Create video record
+        const videoId = Date.now() + Math.random().toString(36);
+        const newVideo = {
+            id: videoId,
+            filename: videoFile.name,
+            uploadDate: Date.now(),
+            codeUsed: uploadCode
+        };
+        // create transaction entry +1000 NGN (pending 7 days lock)
+        const transaction = {
+            id: Date.now() + "_tx",
+            amount: 1000,
+            timestamp: Date.now(),
+            withdrawn: false,
+            videoId: videoId,
+            videoName: videoFile.name
+        };
+        if (!user.videos) user.videos = [];
+        if (!user.transactions) user.transactions = [];
+        user.videos.push(newVideo);
+        user.transactions.push(transaction);
+        updateUser(user);
+        // show preview / clear
+        const previewDiv = document.getElementById("uploadPreview");
+        previewDiv.innerHTML = `<i class="fas fa-check-circle"></i> Video "${videoFile.name}" posted! ₦1000 credited (subject to 7-day hold).`;
+        document.getElementById("videoFileInput").value = "";
+        document.getElementById("uploadCodeInput").value = "";
+        showMessage(`✅ Video posted! ₦1000 added to your pending balance. Withdrawable after 7 days.`);
+        refreshDashboard();
+        setTimeout(() => { previewDiv.innerHTML = ""; }, 4000);
+    });
+
+    // WITHDRAWAL LOGIC (after 7 days for each earning)
+    document.getElementById("withdrawBtn").addEventListener("click", () => {
+        const user = getCurrentUser();
+        if (!user) { showMessage("Login required", true); return; }
+        const { withdrawable } = computeBalances(user);
+        if (withdrawable <= 0) {
+            showMessage("No funds available for withdrawal yet. Wait 7 days after each upload.", true);
+            return;
+        }
+        // find all eligible transactions (age>=7 days & not withdrawn)
+        const now = Date.now();
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+        let eligibleTx = user.transactions.filter(tx => !tx.withdrawn && (now - tx.timestamp >= sevenDays));
+        if (eligibleTx.length === 0) {
+            showMessage("No withdrawable balance at this moment. Your funds might still be on hold.", true);
+            return;
+        }
+        const totalWithdraw = eligibleTx.reduce((sum, tx) => sum + tx.amount, 0);
+        // mark those as withdrawn
+        eligibleTx.forEach(tx => tx.withdrawn = true);
+        // add withdrawal request record (optional)
+        if (!user.withdrawalRequests) user.withdrawalRequests = [];
+        user.withdrawalRequests.push({
+            amount: totalWithdraw,
+            requestedAt: Date.now(),
+            status: "processing",
+            message: "Will be sent to bank after 7 days"
+        });
+        updateUser(user);
+        showMessage(`💰 Withdrawal request of ₦${totalWithdraw.toFixed(2)} submitted! Your money will be transferred to your bank account within 7 days. (Processing period)`, false);
+        refreshDashboard();
+    });
+
+    // initial load: if modal confirmed, check session
+    if (localStorage.getItem("ageConfirmed") === "true") {
+        // but we still need modal for design, so we let manual click
+    }
+    // ensure modal starts visible, but we can add safety: when confirm, also set
+    document.getElementById("confirmAgeBtn").addEventListener("click", () => {
+        localStorage.setItem("ageConfirmed", "true");
+    });
+    // if page loads and maybe user previously confirmed, but modal still shows? no, we need to handle: but modal shown always until click.
+    // Also check if user already logged in? but modal first then updateUI on confirm.
+    // fine.
+    // Additional: if someone reloads after confirm, we keep session and modal reappears? No, because modal display:flex, we want to re-show? but adult content sites require re-verification? but we show each session load. 
+    // Good to keep security: on page reload, modal shows again but user remains logged in after confirm, we load dashboard again. So on confirm, we call updateAuthUI again.
+    // So after confirm: set display none and show app, then call updateAuthUI
+    // Override confirm listener to also call updateAuthUI after showing mainApp
+    const originalConfirm = document.getElementById("confirmAgeBtn");
+    const newConfirm = originalConfirm.cloneNode(true);
+    originalConfirm.parentNode.replaceChild(newConfirm, originalConfirm);
+    newConfirm.addEventListener("click", () => {
+        modal.style.display = "none";
+        mainApp.style.display = "block";
+        updateAuthUI();
+    });
+    // ensure app hidden initially
+    mainApp.style.display = "none";
+    // also show initial age modal
+    modal.style.display = "flex";
+</script>
+</body>
+</html>

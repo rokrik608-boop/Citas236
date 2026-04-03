@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citaxmexico - 18+ Task Video Platform</title>
+
+<style>
+body{
+font-family:Arial, Helvetica, sans-serif;
+margin:0;
+background:#0f0f0f;
+color:white;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:#1a1a1a;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
+box-shadow:0 0 10px rgba(0,0,0,.5);
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+border:none;
+}
+
+button{
+background:red;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#cc0000;
+}
+
+.balance{
+font-size:22px;
+color:#00ff99;
+}
+
+.alert18{
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:white;
+color:red;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+font-size:40px;
+z-index:999;
+}
+
+.hidden{
+display:none;
+}
+
+.videoPreview{
+width:100%;
+margin-top:10px;
+border-radius:10px;
+}
+
+.small{
+font-size:12px;
+opacity:.7;
+}
+</style>
+
+</head>
+<body>
+
+<div class="alert18" id="adultAlert">
+<div>🔞 18+ ONLY</div>
+<div style="font-size:18px;color:black;">Adult Content Platform</div>
+<button onclick="enterSite()">ENTER</button>
+</div>
+
+<div class="container hidden" id="app">
+
+<div id="auth">
+
+<div class="card">
+<h2>Signup</h2>
+
+<input type="text" id="inviteCode" placeholder="Access Code">
+<input type="date" id="dob">
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="signup()">Create Account</button>
+</div>
+
+<div class="card">
+<h2>Login</h2>
+
+<input type="text" id="loginUser" placeholder="Username">
+<input type="password" id="loginPass" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+</div>
+
+</div>
+
+<div id="dashboard" class="hidden">
+
+<div class="card">
+<h3>Welcome <span id="user"></span></h3>
+<div class="balance">₦ <span id="balance">0</span></div>
+<div class="small">Withdrawals processed after 7 days</div>
+</div>
+
+<div class="card">
+<h3>Upload Task Video</h3>
+
+<input type="file" id="videoUpload" accept="video/*">
+<input type="text" id="taskCode" placeholder="Enter Task Code">
+<button onclick="submitTask()">Submit Task</button>
+
+<video controls id="preview" class="videoPreview hidden"></video>
+</div>
+
+<div class="card">
+<h3>Withdraw</h3>
+<button onclick="withdraw()">Request Withdrawal</button>
+<div id="withdrawMsg"></div>
+</div>
+
+<button onclick="logout()">Logout</button>
+
+</div>
+
+</div>
+
+<script>
+
+let ACCESS_CODE = "CITAX2026"; 
+let TASK_CODE = "TASK1000";
+
+function enterSite(){
+document.getElementById("adultAlert").style.display="none";
+document.getElementById("app").classList.remove("hidden");
+}
+
+function signup(){
+
+let code = inviteCode.value;
+let dob = new Date(document.getElementById("dob").value);
+let user = username.value;
+let pass = password.value;
+
+let age = new Date().getFullYear() - dob.getFullYear();
+
+if(code !== ACCESS_CODE){
+alert("Invalid Access Code");
+return;
+}
+
+if(age < 18){
+alert("You must be 18+");
+return;
+}
+
+let data={
+username:user,
+password:pass,
+balance:0,
+withdrawTime:null
+}
+
+localStorage.setItem("citaxUser", JSON.stringify(data));
+alert("Account Created");
+}
+
+function login(){
+
+let user = loginUser.value;
+let pass = loginPass.value;
+
+let data = JSON.parse(localStorage.getItem("citaxUser"));
+
+if(!data) return alert("No account");
+
+if(user===data.username && pass===data.password){
+
+auth.classList.add("hidden");
+dashboard.classList.remove("hidden");
+
+document.getElementById("user").innerText=data.username;
+updateBalance();
+
+}else{
+alert("Wrong login");
+}
+}
+
+function updateBalance(){
+let data = JSON.parse(localStorage.getItem("citaxUser"));
+balance.innerText=data.balance;
+}
+
+videoUpload.onchange=function(e){
+let file = e.target.files[0];
+let url = URL.createObjectURL(file);
+
+preview.src=url;
+preview.classList.remove("hidden");
+}
+
+function submitTask(){
+
+let code = taskCode.value;
+let file = videoUpload.files[0];
+
+if(!file) return alert("Upload video first");
+
+if(code !== TASK_CODE){
+alert("Invalid Task Code");
+return;
+}
+
+let data = JSON.parse(localStorage.getItem("citaxUser"));
+data.balance += 1000;
+
+localStorage.setItem("citaxUser", JSON.stringify(data));
+
+alert("₦1000 credited!");
+updateBalance();
+}
+
+function withdraw(){
+
+let data = JSON.parse(localStorage.getItem("citaxUser"));
+
+if(data.balance < 1000){
+alert("Minimum ₦1000");
+return;
+}
+
+let now = Date.now();
+data.withdrawTime = now;
+
+localStorage.setItem("citaxUser", JSON.stringify(data));
+
+withdrawMsg.innerHTML="Withdrawal processing... You will receive payment in 7 days.";
+}
+
+function logout(){
+location.reload();
+}
+
+</script>
+
+</body>
+</html>

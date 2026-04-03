@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Citaxmexico</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+background:#111;
+color:white;
+font-family:Arial;
+margin:0;
+}
+
+.box{
+max-width:400px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:#1c1c1c;
+padding:15px;
+margin-top:15px;
+border-radius:8px;
+}
+
+input,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+background:red;
+color:white;
+}
+
+.alert{
+position:fixed;
+top:0;
+bottom:0;
+left:0;
+right:0;
+background:white;
+color:red;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:35px;
+}
+
+.hidden{
+display:none;
+}
+
+video{
+width:100%;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="alert" id="alert18">
+🔞 18+ ONLY
+<button onclick="enter()">ENTER</button>
+</div>
+
+<div class="box hidden" id="main">
+
+<div id="auth">
+
+<div class="card">
+<h3>Signup</h3>
+
+<input type="text" id="code" placeholder="Access Code">
+<input type="date" id="dob">
+<input type="text" id="user" placeholder="Username">
+<input type="password" id="pass" placeholder="Password">
+
+<button onclick="signup()">Signup</button>
+</div>
+
+<div class="card">
+<h3>Login</h3>
+
+<input type="text" id="luser">
+<input type="password" id="lpass">
+
+<button onclick="login()">Login</button>
+</div>
+
+</div>
+
+<div id="dash" class="hidden">
+
+<div class="card">
+Balance: ₦<span id="bal">0</span>
+</div>
+
+<div class="card">
+<input type="file" id="video">
+<input type="text" id="task" placeholder="Task code">
+<button onclick="submit()">Submit Task</button>
+
+<video controls id="prev"></video>
+</div>
+
+<div class="card">
+<button onclick="withdraw()">Withdraw</button>
+<div id="msg"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let ACCESS="CITAX2026";
+let TASK="TASK1000";
+
+function enter(){
+document.getElementById("alert18").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+}
+
+function signup(){
+
+let code=document.getElementById("code").value;
+let dob=new Date(document.getElementById("dob").value);
+let age=new Date().getFullYear()-dob.getFullYear();
+
+if(code!=ACCESS){
+alert("Wrong code");
+return;
+}
+
+if(age<18){
+alert("18+ only");
+return;
+}
+
+let user=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
+
+localStorage.setItem("user",user);
+localStorage.setItem("pass",pass);
+localStorage.setItem("bal",0);
+
+alert("Account created");
+}
+
+function login(){
+
+let u=document.getElementById("luser").value;
+let p=document.getElementById("lpass").value;
+
+if(u==localStorage.getItem("user") && p==localStorage.getItem("pass")){
+document.getElementById("auth").classList.add("hidden");
+document.getElementById("dash").classList.remove("hidden");
+update();
+}else{
+alert("Wrong login");
+}
+
+}
+
+function update(){
+document.getElementById("bal").innerText=localStorage.getItem("bal");
+}
+
+document.getElementById("video").onchange=function(e){
+let url=URL.createObjectURL(e.target.files[0]);
+document.getElementById("prev").src=url;
+}
+
+function submit(){
+
+let code=document.getElementById("task").value;
+
+if(code!=TASK){
+alert("Wrong task code");
+return;
+}
+
+let bal=parseInt(localStorage.getItem("bal"));
+bal+=1000;
+
+localStorage.setItem("bal",bal);
+
+alert("₦1000 added");
+update();
+}
+
+function withdraw(){
+document.getElementById("msg").innerText="Withdrawal processing... payment in 7 days";
+}
+
+</script>
+
+</body>
+</html>
